@@ -1,0 +1,278 @@
+SMART SALES FORECAST PROJESİ SUNUMU
+
+1. PROJE HAKKINDA
+-----------------
+Smart Sales Forecast, ürün satışlarını tahmin etmek için geliştirilmiş bir makine öğrenmesi projesidir. Bu proje, geçmiş satış verilerini analiz ederek gelecekteki satış miktarlarını tahmin etmeyi amaçlamaktadır.
+
+2. KULLANILAN TEKNOLOJİLER
+-------------------------
+- Backend: FastAPI (Python web framework)
+- Veritabanı: SQLAlchemy (ORM)
+- Makine Öğrenmesi: scikit-learn
+- Veri İşleme: pandas, numpy
+- Model Kaydetme: joblib
+
+3. VERİ İŞLEME VE ÖN İŞLEME
+---------------------------
+- Eksik verilerin doldurulması (median ve mode kullanılarak)
+- Aykırı değerlerin tespiti ve düzeltilmesi (Z-score yöntemi)
+- Kategorik değişkenlerin one-hot encoding ile dönüştürülmesi
+- Sayısal değişkenlerin standardizasyonu (StandardScaler)
+
+4. KULLANILAN MAKİNE ÖĞRENMESİ MODELLERİ
+---------------------------------------
+Projede dört farklı makine öğrenmesi modeli kullanılmaktadır:
+
+a) Decision Tree Regressor
+   - Ağaç tabanlı regresyon modeli
+   - Özellik önemlerini belirleme yeteneği
+   - Varsayılan model olarak kullanılmaktadır
+
+b) Linear Regression
+   - Doğrusal regresyon modeli
+   - Basit ve yorumlanabilir tahminler
+
+c) K-Nearest Neighbors (KNN) Regressor
+   - K-en yakın komşu algoritması
+   - K=5 parametresi ile kullanılmaktadır
+
+d) Logistic Regression
+   - Lojistik regresyon modeli
+   - Sınıflandırma tabanlı tahminler
+
+5. MODEL DEĞERLENDİRME METRİKLERİ
+--------------------------------
+- R² Score (R-kare): Modelin açıklayıcılık gücü
+- RMSE (Root Mean Squared Error): Hata karesi ortalamasının karekökü
+- MAE (Mean Absolute Error): Ortalama mutlak hata
+- Accuracy: Doğruluk değeri (belirli bir eşik değerine göre)
+
+6. API ENDPOINT'LERİ
+------------------
+- /predict: Satış tahmini yapma
+- /retrain: Modeli yeniden eğitme
+- /model_info: Model bilgilerini görüntüleme
+- /products: Ürün listesini görüntüleme
+
+7. PROJENİN AVANTAJLARI
+----------------------
+- Gerçek zamanlı tahmin yapabilme
+- Farklı model seçenekleri sunma
+- Detaylı model performans metrikleri
+- Kullanıcı dostu API arayüzü
+- Veri kalitesi kontrolleri ve temizleme işlemleri
+
+8. GELECEK GELİŞTİRMELER
+-----------------------
+- Daha fazla özellik eklenmesi
+- Model performansının iyileştirilmesi
+- Tahmin güven aralıklarının eklenmesi
+- Otomatik model seçimi ve optimizasyonu
+- Daha detaylı raporlama özellikleri
+
+9. SONUÇ
+-------
+Smart Sales Forecast projesi, işletmelerin satış tahminlerini daha doğru yapabilmelerini sağlayan, modern teknolojiler kullanan ve sürekli geliştirilebilir bir çözümdür. Farklı makine öğrenmesi modelleri ve kapsamlı veri ön işleme teknikleri sayesinde güvenilir tahminler sunmaktadır.
+
+====================================================================
+
+SMART SALES FORECAST PROJESİ DETAYLI SUNUMU
+
+1. PROJE HAKKINDA
+-----------------
+Smart Sales Forecast, ürün satışlarını tahmin etmek için geliştirilmiş bir makine öğrenmesi projesidir. Bu proje, geçmiş satış verilerini analiz ederek gelecekteki satış miktarlarını tahmin etmeyi amaçlamaktadır.
+
+Projenin Temel Amacı:
+- Geçmiş satış verilerini analiz ederek gelecek satışları tahmin etmek
+- İşletmelere stok yönetimi için veriye dayalı kararlar sunmak
+- Farklı ürün kategorileri için özelleştirilmiş tahminler yapmak
+- Satış trendlerini ve mevsimsellikleri tespit etmek
+
+2. KULLANILAN TEKNOLOJİLER VE ARAÇLAR
+------------------------------------
+Backend Altyapısı:
+- FastAPI: Modern, hızlı ve güvenli Python web framework'ü
+- SQLAlchemy: Güçlü ORM (Object-Relational Mapping) sistemi
+- Pydantic: Veri doğrulama ve ayarlar yönetimi
+
+Veri İşleme ve Analiz:
+- pandas: Veri manipülasyonu ve analizi için güçlü kütüphane
+- numpy: Sayısal hesaplamalar ve veri işleme
+- scikit-learn: Makine öğrenmesi algoritmaları ve araçları
+- joblib: Model serileştirme ve paralel işleme
+
+Veritabanı:
+- SQLite: Hafif ve taşınabilir veritabanı sistemi
+- İlişkisel veritabanı yapısı
+- Ürün, kategori, tedarikçi ve satış tabloları
+
+3. VERİ İŞLEME VE ÖN İŞLEME SÜRECİ
+---------------------------------
+Veri Toplama:
+- Geçmiş satış verilerinin veritabanından çekilmesi
+- Ürün, kategori ve tedarikçi bilgilerinin entegrasyonu
+- Aylık satış özetlerinin oluşturulması
+
+Veri Temizleme:
+- Eksik verilerin tespiti ve doldurulması
+  * Sayısal değerler için medyan kullanımı
+  * Kategorik değerler için mod kullanımı
+- Aykırı değerlerin tespiti (Z-score yöntemi)
+  * 3 standart sapma dışındaki değerlerin düzeltilmesi
+  * Medyan değerlerle değiştirme
+
+Veri Dönüşümü:
+- Kategorik değişkenlerin one-hot encoding ile dönüştürülmesi
+  * Kategori ID'leri için binary encoding
+  * Tedarikçi ID'leri için binary encoding
+- Sayısal değişkenlerin standardizasyonu
+  * StandardScaler ile ölçeklendirme
+  * Ortalama ve standart sapma bazlı normalizasyon
+
+4. KULLANILAN MAKİNE ÖĞRENMESİ MODELLERİ
+---------------------------------------
+a) Decision Tree Regressor
+   - Ağaç tabanlı regresyon modeli
+   - Özellik önemlerini belirleme yeteneği
+   - Varsayılan model olarak kullanılmaktadır
+   - Hiperparametreler:
+     * max_depth: Ağaç derinliği
+     * min_samples_split: Bölünme için minimum örnek sayısı
+     * random_state: Tekrarlanabilirlik için sabit değer
+
+b) Linear Regression
+   - Doğrusal regresyon modeli
+   - Basit ve yorumlanabilir tahminler
+   - Özellikler arasındaki doğrusal ilişkileri modelleme
+   - Normal denklemler veya gradyan inişi ile optimizasyon
+
+c) K-Nearest Neighbors (KNN) Regressor
+   - K-en yakın komşu algoritması
+   - K=5 parametresi ile kullanılmaktadır
+   - Öklid mesafesi ile komşuluk hesaplama
+   - Ağırlıklı ortalama ile tahmin
+
+d) Logistic Regression
+   - Lojistik regresyon modeli
+   - Sınıflandırma tabanlı tahminler
+   - Sigmoid fonksiyonu ile olasılık hesaplama
+   - L2 regularizasyonu ile aşırı öğrenmeyi önleme
+
+5. MODEL DEĞERLENDİRME VE METRİKLER
+----------------------------------
+Model Performans Metrikleri:
+- R² Score (R-kare):
+  * Modelin açıklayıcılık gücü
+  * 0-1 arası değer (1'e yakın olması tercih edilir)
+  * Hedef değişkenin varyansını açıklama oranı
+
+- RMSE (Root Mean Squared Error):
+  * Hata karesi ortalamasının karekökü
+  * Tahmin hatalarının büyüklüğünü ölçme
+  * Daha büyük hatalara daha fazla ceza verme
+
+- MAE (Mean Absolute Error):
+  * Ortalama mutlak hata
+  * Tahmin hatalarının mutlak değerlerinin ortalaması
+  * Daha yorumlanabilir hata ölçüsü
+
+- Accuracy:
+  * Doğruluk değeri
+  * Belirli bir eşik değerine göre hesaplanır
+  * Tahminlerin ne kadarının kabul edilebilir aralıkta olduğunu gösterir
+
+Model Seçim Kriterleri:
+- Çapraz doğrulama (cross-validation)
+- AIC/BIC gibi bilgi kriterleri
+- Model karmaşıklığı ve yorumlanabilirlik
+- Eğitim ve test performansı karşılaştırması
+
+6. API SİSTEMİ VE ENDPOINT'LER
+----------------------------
+API Mimarisi:
+- RESTful API tasarımı
+- JSON formatında veri alışverişi
+- Hata yönetimi ve doğrulama
+- Güvenlik önlemleri
+
+Endpoint'ler ve İşlevleri:
+- /predict:
+  * Satış tahmini yapma
+  * Gerekli parametreler: product_id, order_date
+  * Opsiyonel parametreler: customer_id, quantity
+  * Tahmin sonucu ve güven skoru dönüşü
+
+- /retrain:
+  * Modeli yeniden eğitme
+  * Model tipi seçimi
+  * Eğitim parametrelerinin ayarlanması
+  * Performans metriklerinin dönüşü
+
+- /model_info:
+  * Model bilgilerini görüntüleme
+  * Performans metrikleri
+  * Özellik önemleri
+  * Eğitim tarihi ve parametreler
+
+- /products:
+  * Ürün listesini görüntüleme
+  * Filtreleme seçenekleri
+  * Sayfalama desteği
+  * Detaylı ürün bilgileri
+
+7. PROJENİN AVANTAJLARI VE YENİLİKLER
+-----------------------------------
+Teknik Avantajlar:
+- Gerçek zamanlı tahmin yapabilme
+- Farklı model seçenekleri sunma
+- Detaylı model performans metrikleri
+- Kullanıcı dostu API arayüzü
+- Veri kalitesi kontrolleri ve temizleme işlemleri
+
+İş Avantajları:
+- Stok yönetiminde verimlilik
+- Satış planlamasında doğruluk
+- Kaynak tahsisinde optimizasyon
+- Maliyet düşürme potansiyeli
+- Rekabet avantajı sağlama
+
+8. GELECEK GELİŞTİRMELER VE YOL HARİTASI
+--------------------------------------
+Kısa Vadeli Geliştirmeler:
+- Daha fazla özellik eklenmesi
+- Model performansının iyileştirilmesi
+- Tahmin güven aralıklarının eklenmesi
+- Otomatik model seçimi ve optimizasyonu
+- Daha detaylı raporlama özellikleri
+
+Orta Vadeli Hedefler:
+- Derin öğrenme modellerinin entegrasyonu
+- Zaman serisi analizi eklenmesi
+- Çoklu ürün tahminleri
+- Mevsimsellik analizi
+- Anomali tespiti
+
+Uzun Vadeli Vizyon:
+- Prescriptive analytics entegrasyonu
+- Otomatik stok yönetimi önerileri
+- Fiyat optimizasyonu
+- Müşteri segmentasyonu
+- Pazar analizi araçları
+
+9. SONUÇ VE DEĞERLENDİRME
+------------------------
+Proje Değerlendirmesi:
+- Modern teknolojiler kullanımı
+- Esnek ve ölçeklenebilir mimari
+- Kapsamlı veri işleme ve analiz
+- Çoklu model desteği
+- Sürekli geliştirilebilir yapı
+
+İş Değeri:
+- Veriye dayalı karar alma
+- Operasyonel verimlilik
+- Maliyet optimizasyonu
+- Rekabet avantajı
+- Sürdürülebilir büyüme
+
+Smart Sales Forecast projesi, işletmelerin satış tahminlerini daha doğru yapabilmelerini sağlayan, modern teknolojiler kullanan ve sürekli geliştirilebilir bir çözümdür. Farklı makine öğrenmesi modelleri ve kapsamlı veri ön işleme teknikleri sayesinde güvenilir tahminler sunmaktadır. 
