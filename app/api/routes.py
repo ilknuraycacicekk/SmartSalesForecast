@@ -306,7 +306,7 @@ def retrain_model(
     Bu endpoint ile makine öğrenmesi modelini yeniden eğitebilirsiniz.
     
     Args:
-        model_type: Eğitilecek model tipi ('decision_tree', 'linear', 'knn', 'logistic')
+        model_type: Eğitilecek model tipi ('decision_tree', 'linear', 'knn', 'logistic', 'random_forest')
         
     Returns:
         r2_score: R-kare değeri (modelin açıklayıcılık gücü)
@@ -325,7 +325,7 @@ def retrain_model(
             model_type = retrain_request.model_type
         
         # Model tipinin geçerli olup olmadığını kontrol et
-        valid_models = ["decision_tree", "linear", "knn", "logistic"]
+        valid_models = ["decision_tree", "linear", "knn", "logistic", "random_forest"]
         if model_type not in valid_models:
             raise HTTPException(
                 status_code=status.HTTP_400_BAD_REQUEST,
@@ -368,31 +368,3 @@ def retrain_model(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail=f"Model eğitiminde beklenmeyen bir hata oluştu: {str(e)}"
         )
-
-
-@router.get("/model_info", response_model=SalesPredictionMetrics)
-def get_model_info(db: Session = Depends(get_db)):
-    """
-    Get information about the trained model.
-    """
-    # Load model if not already loaded
-    if model.model is None:
-        success = model.load()
-        if not success:
-            raise HTTPException(
-                status_code=status.HTTP_404_NOT_FOUND,
-                detail="Model not trained yet"
-            )
-    
-    # Get model info
-    model_info = model.get_model_info()
-    
-    # Return metrics and model info
-    return SalesPredictionMetrics(
-        r2_score=model_info["metrics"]["r2_score"],
-        rmse=model_info["metrics"]["rmse"],
-        mae=model_info["metrics"]["mae"],
-        accuracy=model_info["metrics"]["accuracy"] if "accuracy" in model_info["metrics"] else 0.0,
-        threshold=model_info["metrics"].get("threshold"),
-        model_info=model_info
-    ) 

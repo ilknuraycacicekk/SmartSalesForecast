@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.linear_model import LinearRegression, LogisticRegression
 from sklearn.neighbors import KNeighborsRegressor
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.preprocessing import StandardScaler
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
@@ -38,7 +39,7 @@ class SalesForecastModel:
         
         Args:
             db: Veritabanı bağlantısı
-            model_type: Model tipi ('decision_tree', 'linear', 'knn', 'logistic')
+            model_type: Model tipi ('decision_tree', 'linear', 'knn', 'logistic', 'random_forest')
             test_size: Test verisi oranı
             random_state: Rastgele sayı üreteci için sabit değer
             
@@ -82,6 +83,8 @@ class SalesForecastModel:
             model = KNeighborsRegressor(n_neighbors=5)
         elif model_type == "logistic":
             model = LogisticRegression(random_state=random_state)
+        elif model_type == "random_forest":
+            model = RandomForestRegressor(random_state=random_state)
         else:
             return {"error": f"Bilinmeyen model tipi: {model_type}"}
         
@@ -161,15 +164,15 @@ class SalesForecastModel:
     
     def get_feature_importance(self):
         """
-        Decision Tree modeli için özellik önemlerini al.
-        Sadece decision_tree modeli için çalışır.
+        Random Forest ve Decision Tree modeli için özellik önemlerini al.
+        Sadece decision_tree ve random_forest modelleri için çalışır.
         
         Returns:
             DataFrame: Özellikler ve önem değerleri
         """
-        if self.model is None or self.model_type != "decision_tree":
+        if self.model is None or self.model_type not in ["decision_tree", "random_forest"]:
             return None
-            
+        
         # Özellik önemlerini çıkar
         model = self.model.named_steps['regressor']
         importance = model.feature_importances_
@@ -224,7 +227,7 @@ class SalesForecastModel:
         
         # Özellik önemleri
         feature_importance = None
-        if self.model_type == "decision_tree":
+        if self.model_type in ["decision_tree", "random_forest"]:
             try:
                 importance_df = self.get_feature_importance()
                 if importance_df is not None:
@@ -239,4 +242,4 @@ class SalesForecastModel:
             'trained_date': self.trained_date.isoformat() if self.trained_date else None,
             'model_type': self.model_type,
             'feature_importance': feature_importance
-        } 
+        }

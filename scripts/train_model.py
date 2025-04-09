@@ -68,11 +68,11 @@ if __name__ == "__main__":
     # Argüman ayrıştırıcı oluştur
     parser = argparse.ArgumentParser(description='Satış tahmin modeli eğitimi')
     parser.add_argument('--model', type=str, 
-                      choices=['decision_tree', 'linear', 'knn', 'logistic'],
+                      choices=['decision_tree', 'linear', 'knn', 'logistic', 'random_forest'],
                       default='decision_tree', help='Eğitilecek model tipi')
     
     # Argümanları ayrıştır
     args = parser.parse_args()
     
     # Modeli belirtilen argümanlarla eğit
-    train_model(model_type=args.model) 
+    train_model(model_type=args.model)
