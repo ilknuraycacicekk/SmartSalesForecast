@@ -43,3 +43,4 @@ A machine learning-based sales forecast API built with FastAPI, using Northwind 
 API documentation is available at `/docs` after starting the server. 
 
 
+"# SmartSalesForecast" 
